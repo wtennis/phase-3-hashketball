@@ -1,4 +1,7 @@
 # Write your code below game_hash
+require 'pry'
+
+
 def game_hash
   {
     home: {
@@ -127,3 +130,71 @@ def game_hash
 end
 
 # Write code here
+def all_players_arr 
+  game_hash[:home][:players] + game_hash[:away][:players]
+end
+
+def num_points_scored (player)
+  all_players_arr.each do |player_hash| 
+    if player_hash[:player_name] == player
+     return player_hash[:points]
+    end
+  end
+end
+
+num_points_scored ("Brook Lopez")
+
+def shoe_size (player)
+  all_players_arr.each do |player_hash| 
+    if player_hash[:player_name] == player
+     return player_hash[:shoe]
+    end
+  end
+end
+
+
+
+def team_colors (a_team)
+  game_hash.each do |home_or_away, team_hash|
+    if team_hash[:team_name] == a_team
+      return team_hash[:colors]
+    end
+  end
+end
+
+
+
+def team_names 
+  game_hash.map do |home_or_away, team_hash|
+    team_hash[:team_name]
+    end
+end
+
+
+def player_numbers (team)
+  jersey_arr = []
+  game_hash.map do |home_or_away, team_hash|
+    if team_hash[:team_name] == team
+      team_hash[:players].each do |player_hash|
+        jersey_arr << player_hash[:number]
+      end
+    end
+  end
+  return jersey_arr
+end
+
+player_numbers('Brooklyn Nets')
+
+def player_stats (name)
+  all_players_arr.each do |player_hash|
+    if player_hash[:player_name] == name
+      return player_hash
+    end
+  end
+end
+
+def big_shoe_rebounds
+  all_players_arr.sort { |a,b| b[:shoe] <=> a[:shoe] }[0][:rebounds]
+end
+
+
